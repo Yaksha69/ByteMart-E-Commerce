@@ -1,3 +1,4 @@
+
 const Product = require('./model'); // Ensure the correct path to the model
 
 const updateProductPrice = async (req, res) => {
@@ -23,25 +24,65 @@ const updateProductPrice = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-const createProduct = async (req, res) => {
-  try {
-    const { name, category, price, stock } = req.body;
 
-    // Create a new product instance
-    const newProduct = new Product({
-      name,
-      category,
-      tags: [], 
-      price,
-      stock,
-    });
+const addProduct = async (req, res) => {
+    try {
+        const { name, category, tags, price, stock } = req.body;
 
-    // Save the product to the database
-    await newProduct.save();
+        const newproduct = new Product({ name, category, tags, price, stock });
+        await newproduct.save();
 
-    res.status(201).json({ message: 'Product created successfully', product: newProduct });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+        res.status(201).json({ message: 'product added successfully', product: newproduct });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+const getProductStock = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        // Validate MongoDB ObjectId
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid product ID' });
+        }
+
+        const product = await Product.findById(id);
+
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.status(200).json({ 
+            id: product._id, 
+            stock: product.stock 
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
-module.exports = { updateProductPrice, createProduct };
+
+const updateCategory = async (req, res) => {
+    try {
+        const {id}=req.params;
+        const {category, tags}=req.body;
+
+        const product = await Product.findById(id)
+        if(!product)return res.status(500).json({message:'product not found'});
+
+        if(product) product.category = category;
+        if(product) product.tags = tags;
+        
+        await product.save()
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({success:false, message:err})
+    }
+}
+
+module.exports={
+    updateCategory,
+    getProductStock,
+    addProduct,
+    updateProductPrice
+};

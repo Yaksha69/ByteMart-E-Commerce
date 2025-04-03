@@ -1,10 +1,12 @@
 const express = require('express');
-const { updateProductPrice, createProduct } = require('./controller'); // Adjust path if needed
-
 const router = express.Router();
 
+const { getProductStock, updateCategory, addProduct, updateProductPrice } = require('./controller');
+
+router.post('/add', addProduct);
+router.get('/:id/stock', getProductStock);
+router.put('/products/:id/category', updateCategory);
 router.put('/:id/price', updateProductPrice);
-router.post('/', createProduct);
+
 
 module.exports = router;
-

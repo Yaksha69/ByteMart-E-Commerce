@@ -11,6 +11,10 @@ const productSchema = new Schema({
         type: String,
         required: true,
     },
+    tags:{
+        type: [String],
+        required: true,
+    }, 
     price: {
         type: Number,
         required: true,
@@ -18,8 +22,7 @@ const productSchema = new Schema({
     stock: {
         type: Number,
         required: true,
-    },
-    
+    };
 });
 
 module.exports = mongoose.model('Product', productSchema);
