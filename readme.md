@@ -5,7 +5,7 @@ Product and Inventory Management Service
 npm install express mongoose nodemon dotenv
 
 | Functions         | HTTP Method              | Endpoint                  | Data Included |
-|----------------|----------------------|------------------------------|
+|----------------|----------------------|------------------------------|----------------------------|
 | Product Catalog Management  | POST  | /products/add       | product_id, name, category, price, stock |
 | Stock Level Monitoring | GET  | /products/:id/stock       | product_id, current_stock |
 | Price Adjustment & Discounts  | PUT   | /products/:id/price         | product_id, new_price, discount_percentage |
