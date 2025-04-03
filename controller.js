@@ -1,5 +1,29 @@
 
-const Product = require('./model');
+const Product = require('./model'); // Ensure the correct path to the model
+
+const updateProductPrice = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract the product ID from the request parameters
+    const { price, } = req.body;
+
+
+    // Find the product by product_id
+    const product = await Product.findById( id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Update product fields
+    product.price = price;
+
+    await product.save();
+
+    res.status(200).json({ message: 'Price updated successfully', product });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const addProduct = async (req, res) => {
     try {
@@ -59,5 +83,6 @@ const updateCategory = async (req, res) => {
 module.exports={
     updateCategory,
     getProductStock,
-    addProduct
+    addProduct,
+    updateProductPrice
 };
