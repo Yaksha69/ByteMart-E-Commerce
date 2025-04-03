@@ -1,9 +1,8 @@
 const express = require('express');
-
-const controller = require('./controller');
 const router = express.Router();
+const { getProductStock, updateCategory } = require('./controller');
 
-router.put('/products/:id/category', controller.updateCategory);
+router.get('/:id/stock', getProductStock);
+router.put('/products/:id/category', updateCategory);
 
-module.exports=router;
-
+module.exports = router;
