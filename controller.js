@@ -1,5 +1,6 @@
 
 const Product = require('./model'); // Ensure the correct path to the model
+const mongoose = require('mongoose'); // Ensure you have mongoose imported
 
 const updateProductPrice = async (req, res) => {
   try {
