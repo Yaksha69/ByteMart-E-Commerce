@@ -1,6 +1,6 @@
 const Product = require('./model'); 
+const mongoose = require('mongoose')
 
-// Get product stock by ID
 const getProductStock = async (req, res) => {
     try {
         const {id} = req.params;
