@@ -1,11 +1,13 @@
 const express = require('express');
-const router = require('./router');
+const router = require('./routes');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
 
 app.use(express.json());
+
+app.use('/products', router);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
