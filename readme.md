@@ -11,4 +11,4 @@ npm install express mongoose nodemon dotenv
 | Price Adjustment & Discounts  | PUT   | /products/:id/price         | product_id, new_price, discount_percentage |
 | Category & Tag Management  | PUT   | /products/:id/category       | product_id, categories, tags |
 | Supplier Management | POST  | /suppliers/add        | supplier_id, name, contact_info |
-------------------------------------------------------------------------
+------------------------------------------------------------------------ |
